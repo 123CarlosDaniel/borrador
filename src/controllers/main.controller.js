@@ -1,3 +1,4 @@
+const passport = require('passport')
 const { getData, getCourses, getSchools, getOnlySchools, saveUser, getSchool } = require('../models/academia.model')
 const User = require('../models/users.model')
 const controller = {}
@@ -83,21 +84,15 @@ controller.renderSignin = (req,res) => {
     res.render('signin')
 }
 
-controller.login = async(req,res) => {
-    const {email,password} = req.body
-    const user = await User.findOne({email})   
-    if (!user) {
-        req.flash('error_msg','No se encontro ningun usuario con este email')
-        return res.redirect('/signin')
-    }
-    const value =await user.matchPassword(password)
-    if(!value) {
-        req.flash('error_msg','Contraseña o email incorrecto')
-        return res.redirect('/signin')
-    }
-    else {
-        if (user.rol =='option1') return res.redirect(`/teachers/home/${user.id}`)
-        if (user.rol =='option2') return res.redirect(`/students/home/${user.id}`)
-    }
+controller.login = passport.authenticate('local', {
+    failureRedirect : '/signin',
+    successRedirect : '/home',
+    failureFlash : true
+})
+
+controller.logout = (req,res) => {
+    req.logout()
+    req.flash('success_msg','Has salido de tu cuenta' )
+    res.redirect('/signin')
 }
 module.exports = controller

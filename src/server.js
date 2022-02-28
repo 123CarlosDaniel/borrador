@@ -36,7 +36,10 @@ app.use(flash())
 
 // gloabl variables 
 app.use( (req,res,next) => {
+    res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
+    res.locals.error = req.flash('error')
+    res.locals.user = req.user || null
     next()
 })
 
@@ -45,7 +48,7 @@ app.use( (req,res,next) => {
 app.use( require('./routes/main.routes'));
 app.use( require('./routes/teachers.routes'));
 app.use( require('./routes/students.routes'));
-
+app.use( require('./routes/users.routes'))
 //static files
 app.use(express.static(path.join(__dirname,'public')))
 module.exports = app

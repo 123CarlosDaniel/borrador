@@ -26,10 +26,14 @@
             </li>
         </ul>
         <form class="d-lg-flex d-none ">
+        {{#if user}}
+        <a class="btn  btn-outline-success me-2 " style="width: 6rem;" href="/logout" >Log Out</a>
+        {{/if}}
+        {{#unless user}}
         <a class="btn  btn-outline-success me-2 " style="width: 6rem;" href="/signin" >Log In</a>
         <a class="btn btn-outline-secondary me-2" style="width: 6rem;" href="/signup" >Sign Up</a>
+        {{/unless}}
         </form>
     </div>
     </div>
-   
 </nav>

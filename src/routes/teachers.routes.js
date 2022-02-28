@@ -3,8 +3,9 @@ const {Router} = require('express')
 const router = Router()
 
 const { getall } = require('../controllers/teachers.controller')
+const { isAuthenticated } = require('../helpers/auth')
 
-router.get('/teachers/home/:id', (req,res) => {
+router.get('/teachers/home', isAuthenticated,(req,res) => {
     res.render('teachers/teachers_home')
 })
 
