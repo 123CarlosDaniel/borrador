@@ -1,0 +1,22 @@
+<h3>Nombre del curso</h3>
+<table class="table table-dark table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Nombre del Alumno</th>
+      <th scope="col">Email del alumno</th>
+      <th scope="col">Nota </th>
+      <th scope="col">Agregar notas</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each rows}}
+    <tr>
+      <th scope="row">{{name}}</th>
+      <td>{{email}}</td>
+      <td>{{grade}}</td>
+      <td><a class="btn btn-outline-success " style="width: 10rem;" href="/teachers/addNote/{{id}}/{{id_student}}/{{id_course}}" >Agregar nota</a></td>
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table>

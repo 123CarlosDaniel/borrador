@@ -7,23 +7,56 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {{#unless user}}
             <li class="nav-item">
-                <a href="/" class="nav-link active">Home</a>
+                <a href="/" class="nav-link active">Inicio</a>
             </li>
             <li class="nav-item">
-                <a href="/about" class="nav-link">About us</a>
+                <a href="/about" class="nav-link">Acerca de </a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Show options
+                    Mostrar opciones
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/courses">Show all courses</a></li>
-                    <li><a class="dropdown-item" href="/schools">Show all schools</a></li>
-                    <li><a class="dropdown-item" href="/registernew">Register a new school</a></li>
+                    {{#if student}}
+                    <li><a class="dropdown-item" href="/courses">Mostrar cursos</a></li>
+                    <li><a class="dropdown-item" href="/schools">Mostrar escuelas</a></li>
+                    {{/if}}
+                    <li><a class="dropdown-item" href="/registernew">Registrar colegio</a></li>
                 </ul>
             </li>
+            {{/unless}}
+            {{#if user}}
+            <li class="nav-item">
+                <a href="/home" class="nav-link active">Pagina principal</a>
+            </li>
+            {{/if}}
+            {{#if teacher}}
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                        Opciones de profesor
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/teachers/courses/{{id}}">Mostrar cursos</a></li>
+                    <li><a class="dropdown-item" href="/teachers/add_courses/{{id}}">Agregar cursos</a></li>
+                </ul>
+            </li>
+            {{/if}}
+            {{#if student}}
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                        Opciones de estudiante
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/students/mycourses/{{id}}">Ver tus cursos</a></li>
+                    <li><a class="dropdown-item" href="/students/courses/{{id}}">Buscar mas cursos</a></li>
+                </ul>
+            </li>
+            {{/if}}
         </ul>
         <form class="d-lg-flex d-none ">
         {{#if user}}

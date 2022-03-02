@@ -1,5 +1,5 @@
 const passport = require('passport')
-const { getData, getCourses, getSchools, getOnlySchools, saveUser, getSchool } = require('../models/academia.model')
+const { getData, getCourses, getSchools, getOnlySchools, saveUser, getSchool, saveSchool } = require('../models/academia.model')
 const User = require('../models/users.model')
 const controller = {}
 
@@ -33,6 +33,14 @@ controller.renderRegister = (req,res) => {
     res.render('newSchool')
 }
 
+controller.registerSchool = (req,res) => {
+    const {name, address} = req.body
+    saveSchool({name,address}, err => {
+        if (err) return console.log(err)
+        req.flash('success_msg', 'Colegio registrado satisfactoriamente')
+        res.redirect('/')
+    })
+}
 controller.renderSignUp = (req,res) => {
     getOnlySchools( (err,rows) => {
         if (err) return console.log(err)
@@ -58,7 +66,7 @@ controller.signup = async(req,res) => {
     }
     else{
         const emailUser = await User.findOne({email:email})
-        console.log(emailUser)
+        // console.log(emailUser)
         if(emailUser){
             req.flash('error_msg','El email esta siendo usado, ingresa otro')
             res.redirect('/signup')
@@ -68,7 +76,7 @@ controller.signup = async(req,res) => {
             await newUser.save()
             saveUser({name,email,school_id},rol, (err) =>{
                 if (err) return console.log(err);
-                getSchool(school_id, (err,rows) => {       
+                getSchool(school_id,async(err,rows) => {     
                     const school_name = rows[0].name
                     if (rol =='option1') res.render('users/teacher',{name,school_name})
                     else{
@@ -76,7 +84,7 @@ controller.signup = async(req,res) => {
                     }
                 })
         })
-        }
+    }
     }
 }
 

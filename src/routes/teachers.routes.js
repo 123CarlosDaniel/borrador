@@ -2,19 +2,20 @@ const {Router} = require('express')
 
 const router = Router()
 
-const { getall } = require('../controllers/teachers.controller')
+const { teacherHome, teacherCourses, renderAddCourse, redirectCourses, renderStudents, renderAddNote, addingNote } = require('../controllers/teachers.controller')
 const { isAuthenticated } = require('../helpers/auth')
 
-router.get('/teachers/home', isAuthenticated,(req,res) => {
-    res.render('teachers/teachers_home')
-})
+router.get('/teachers/home/:id', isAuthenticated, teacherHome)
 
-router.get('/teachers/addcourses',(req,res) =>{
-    res.send('add course')
-})
+router.get('/teachers/courses/:id',isAuthenticated ,teacherCourses)
 
-router.post('/teachers/addcourses',(req,res) =>{
-    res.send('add course')
-})
+router.get('/teachers/add_courses/:id', isAuthenticated, renderAddCourse)
 
+router.post('/teachers/add_courses/:id',isAuthenticated, redirectCourses )
+
+router.get('/teachers/show_students/:id/:id_course',isAuthenticated ,renderStudents)
+
+router.get('/teachers/addNote/:id/:id_student/:id_course', isAuthenticated,renderAddNote)
+
+router.post('/teachers/addNote/:id/:id_student/:id_course',isAuthenticated, addingNote)
 module.exports = router

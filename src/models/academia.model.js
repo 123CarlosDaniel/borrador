@@ -15,6 +15,10 @@ model.getSchools = (cb) => {
     conn.query('select s.name as school,s.address,s.id, count(c.id) as cantidad_cursos from schools s inner join courses c inner join teachers t on t.id = c.teacher_id and s.id = t.school_id group by s.name;',cb)
 }
 
+model.saveSchool = (data,cb) => {
+    conn.query('insert into schools set ?', data,cb)
+}
+
 model.getOnlySchools = (cb) => {
     conn.query('select id,name from schools',cb)
 }
@@ -28,5 +32,12 @@ model.saveUser = (data,rol,cb) => {
 }
 model.getSchool =(id,cb) => {
     conn.query('select name from schools where id=?',id,cb)
+}
+
+model.getIdTeacher = (email,cb) => {
+    conn.query('select id from teachers where email=?', email,cb)
+}
+model.getIdStudent = (email,cb) => {
+    conn.query('select id from students where email = ?', email,cb)
 }
 module.exports = model

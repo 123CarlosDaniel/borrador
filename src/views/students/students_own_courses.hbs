@@ -1,0 +1,20 @@
+<table class="table table-dark table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Codigo</th>
+      <th scope="col">Curso</th>
+      <th scope="col">Profesor</th>
+      <th scope="col">Notas</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each rows}}
+    <tr>
+      <th scope="row">{{code}}</th>
+      <td>{{course}}</td>
+      <td>{{teacher}}</td>
+      <td>{{grade}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

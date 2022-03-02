@@ -11,7 +11,7 @@ const app = express()
 
 //settings
 app.set('views', path.join(__dirname,'views'))
-
+app.set('port', process.env.PORT || 3000)
 app.engine('.hbs', create({
     defaultLayout : 'main',
     layoutsDir : path.join(app.get('views'),'layouts'),
@@ -40,6 +40,14 @@ app.use( (req,res,next) => {
     res.locals.error_msg = req.flash('error_msg')
     res.locals.error = req.flash('error')
     res.locals.user = req.user || null
+    if (req.user) {
+        if(req.user.rol=='option2'){
+            res.locals.student = req.user
+        }
+        if(req.user.rol=='option1'){
+            res.locals.teacher = req.user
+        }
+    }
     next()
 })
 

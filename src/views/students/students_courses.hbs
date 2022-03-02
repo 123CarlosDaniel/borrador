@@ -1,0 +1,21 @@
+
+<h1 class="mt-md-3 text-secondary">Nuestros cursos </h1>
+<div class="row m-4">
+    {{#each rows}}
+        <div class="col-md-auto mb-3" style="min-width: 250px;">
+            <div class="card">
+            <div class="card-body">
+                <h6 class="card-title d-flex justify-content-start align-items-center ">
+                    <b class="me-4">Curso:</b> {{course}}
+                </h6>
+                <p><b class="me-2">Profesor:</b> {{teacher}}</p>
+                <p><b class="me-3">Codigo:</b> {{code}}</p>
+                <p><b class="me-2">Distrito:</b> {{address}}</p>
+                
+                    <a href="/students/sign_course/{{idStudent}}/{{id}}" class="btn btn-outline-success" >Inscribirse</a>
+                
+            </div>
+        </div>
+        </div>
+    {{/each}}
+</div>
