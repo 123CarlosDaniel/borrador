@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const MONGODB_URI= process.env.NOTES_APP_MONGODB_URI || "mongodb://localhost/usuarios"
+const MONGODB_URI= process.env.MONGODB_URI || "mongodb://localhost/usuarios"
 mongoose.connect(MONGODB_URI , {
     useUnifiedTopology : true,
     useNewUrlParser : true,
